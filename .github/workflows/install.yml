@@ -104,11 +104,12 @@ jobs:
             cp -r MXU/* install
           fi
 
-          cp -r MaaFramework/bin install/maafw
+          mkdir -p install/maafw
+          cp -r MaaFramework/bin/* install/maafw
 
           python tools/configure.py
           rm -rf assets/MaaCommonAssets
-          cp -r assets install
+          cp -r assets/* install
 
           # 更新 interface.json 中的版本号
           sed -E '/^[[:space:]]*\/\//d' install/interface.json | jq --indent 4 --arg version "${{ needs.meta.outputs.tag }}" '.version=$version' > install/interface.json.tmp
